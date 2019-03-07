@@ -466,7 +466,11 @@ class Readline(BaseReadline):
         x, y = c.pos()
         n = 0
         
-        IMP = sys._mercurial[0]
+        try:
+            IMP = sys._mercurial[0]
+        except AttributeError:
+            IMP = sys.implementation.name
+
         if IMP != "PyPy":        # En PyPy invoca a "self.console.write(self.prompt)"
             n = c.write_scrolling(self.prompt, self.prompt_color)
 

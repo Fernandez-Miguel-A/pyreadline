@@ -217,7 +217,11 @@ class Console(object):
         self.softspace = 0 # this is for using it as a file-like object
         self.serial = 0
 #
-        IMP = sys._mercurial[0]
+        try:
+            IMP = sys._mercurial[0]
+        except AttributeError:
+            IMP = sys.implementation.name
+
         # print('\n\n\npython%s%s' % (sys.version[0], sys.version[2]), "\n\n", IMP)
         if IMP == "PyPy":
             if sys.winver > "3":
@@ -389,7 +393,11 @@ class Console(object):
 
 
     def strToChar_p(self, txt):
-        IMP = sys._mercurial[0]
+        try:
+            IMP = sys._mercurial[0]
+        except AttributeError:
+            IMP = sys.implementation.name
+
         if IMP == "PyPy":
             string = create_unicode_buffer(len(txt))
             string.value = txt
@@ -821,7 +829,11 @@ def hook_wrapper_23(stdin, stdout, prompt):
         # call the Python hook
         res = readline_hook(prompt)
 
-        IMP = sys._mercurial[0]
+        try:
+            IMP = sys._mercurial[0]
+        except AttributeError:
+            IMP = sys.implementation.name
+
         if IMP == "PyPy" and sys.version > "3.0": # hay un bug cuando tipea sys.´´ "enter"  aparece  sys.|--
             # make sure it returned the right sort of thing
             if res and isinstance(res, bytes):
@@ -843,7 +855,11 @@ def hook_wrapper_23(stdin, stdout, prompt):
         traceback.print_exc()
         res = '\n'
 
-    IMP = sys._mercurial[0]
+    try:
+        IMP = sys._mercurial[0]
+    except AttributeError:
+        IMP = sys.implementation.name
+
     if IMP == "PyPy":
         return res
     else:
@@ -863,7 +879,11 @@ def install_readline(hook):
     # save the hook so the wrapper can call it
     readline_hook = hook
 
-    IMP = sys._mercurial[0]
+    try:
+        IMP = sys._mercurial[0]
+    except AttributeError:
+        IMP = sys.implementation.name
+
     if IMP == "PyPy":
         #return
         if sys.winver > "3":
