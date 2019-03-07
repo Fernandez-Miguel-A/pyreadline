@@ -758,14 +758,28 @@ def getconsole(buffer=1):
 # the type for our C-callable wrapper
 HOOKFUNC23 = CFUNCTYPE(c_char_p, c_void_p, c_void_p, c_char_p)
 
+# De prueba:
+
+test_HOOKFUNC = CFUNCTYPE(c_char_p, c_void_p, c_void_p, c_char_p)
+
+
+def my_hook_wrapper(stdin, stdout, prompt):
+    '''Para probar como hace las llamadas a las funciones'''
+    print("\n\n\n stdin: %s,\n stdout: %s,\n prompt: %s"%(stdin, stdout, prompt))
+    print(type(stdin), type(stdout), type(prompt), prompt)
+
+# Fin de prueba
+
 readline_hook = None # the python hook goes here
 readline_ref = None  # reference to the c-callable to keep it alive
 
 def hook_wrapper_23(stdin, stdout, prompt):
     '''Wrap a Python readline so it behaves like GNU readline.'''
+    # print(type(stdin), type(stdout), type(prompt), prompt)
     try:
         # call the Python hook
         res = ensure_str(readline_hook(prompt))
+        # print("hook_wrapper_23:_:", type(res))
         # make sure it returned the right sort of thing
         if res and not isinstance(res, bytes):
             raise TypeError('readline must return a string.')
@@ -797,6 +811,7 @@ def install_readline(hook):
                            "PyOS_ReadlineFunctionPointer".encode('ascii')))
     # save a reference to the generated C-callable so it doesn't go away
     readline_ref = HOOKFUNC23(hook_wrapper_23)
+    # readline_ref = test_HOOKFUNC(my_hook_wrapper)
     # get the address of the function
     func_start = c_void_p.from_address(addressof(readline_ref)).value
     # write the function address into PyOS_ReadlineFunctionPointer
