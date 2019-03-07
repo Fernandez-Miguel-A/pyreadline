@@ -223,7 +223,7 @@ class Console(object):
             IMP = sys.implementation.name
 
         # print('\n\n\npython%s%s' % (sys.version[0], sys.version[2]), "\n\n", IMP)
-        if IMP == "PyPy":
+        if IMP.lower() == "pypy":
             if sys.winver > "3":
                 nameLib = "libpypy3-c"
             else:
@@ -233,7 +233,7 @@ class Console(object):
         else:
             self.pythondll = ctypes.pythonapi
 
-        if IMP == "PyPy":
+        if IMP.lower() == "pypy":
             self.inputHookPtr = None
             # print("Falta resolver la vinculación con 'PyOS_InputHook'")
             # setattr(Console, 'PyMem_Malloc', self.pythondll.PyPyMem_Malloc)
@@ -398,7 +398,7 @@ class Console(object):
         except AttributeError:
             IMP = sys.implementation.name
 
-        if IMP == "PyPy":
+        if IMP.lower() == "pypy":
             string = create_unicode_buffer(len(txt))
             string.value = txt
             return string
@@ -834,7 +834,7 @@ def hook_wrapper_23(stdin, stdout, prompt):
         except AttributeError:
             IMP = sys.implementation.name
 
-        if IMP == "PyPy" and sys.version > "3.0": # hay un bug cuando tipea sys.´´ "enter"  aparece  sys.|--
+        if IMP.lower() == "pypy" and sys.version > "3.0": # hay un bug cuando tipea sys.´´ "enter"  aparece  sys.|--
             # make sure it returned the right sort of thing
             if res and isinstance(res, bytes):
                 raise TypeError('readline must return a string.')
@@ -855,7 +855,7 @@ def hook_wrapper_23(stdin, stdout, prompt):
         traceback.print_exc()
         res = '\n'
 
-    if IMP == "PyPy":
+    if IMP.lower() == "pypy":
         return res
     else:
         #we have to make a copy because the caller expects to free the result
@@ -880,7 +880,7 @@ def install_readline(hook):
     except AttributeError:
         IMP = sys.implementation.name
 
-    if IMP == "PyPy":
+    if IMP.lower() == "pypy":
         #return
         if sys.winver > "3":
             cin = sys.stdin

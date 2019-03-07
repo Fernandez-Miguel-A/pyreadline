@@ -253,7 +253,7 @@ class BaseMode(object):
         except AttributeError:
             IMP = sys.implementation.name
             
-        if IMP == "PyPy":
+        if IMP.lower() == "pypy":
             self.console.write(self.prompt)# Antes escribía el prompt dos veces en pypy2/3, tube que
             # quitar una llamada dentro de _print_prompt() y añadir self.console.write(self.prompt).
             # Además corregí el bug de el prompt intercalado ".... ", ">>>> "

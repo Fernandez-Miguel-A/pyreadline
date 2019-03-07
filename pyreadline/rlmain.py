@@ -471,7 +471,7 @@ class Readline(BaseReadline):
         except AttributeError:
             IMP = sys.implementation.name
 
-        if IMP != "PyPy":        # En PyPy invoca a "self.console.write(self.prompt)"
+        if IMP.lower() != "pypy":        # En PyPy invoca a "self.console.write(self.prompt)"
             n = c.write_scrolling(self.prompt, self.prompt_color)
 
 
