@@ -464,8 +464,13 @@ class Readline(BaseReadline):
     def _print_prompt(self):
         c = self.console
         x, y = c.pos()
+        n = 0
         
-        n = c.write_scrolling(self.prompt, self.prompt_color)
+        IMP = sys._mercurial[0]
+        if IMP != "PyPy":        # En PyPy invoca a "self.console.write(self.prompt)"
+            n = c.write_scrolling(self.prompt, self.prompt_color)
+
+
         self.prompt_begin_pos = (x, y - n)
         self.prompt_end_pos = c.pos()
         self.size = c.size()

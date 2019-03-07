@@ -247,6 +247,13 @@ class BaseMode(object):
             self.console.write('\n')
         if in_ironpython:
             self.prompt=sys.ps1
+
+        IMP = sys._mercurial[0]
+        if IMP == "PyPy":
+            self.console.write(self.prompt)# Antes escribía el prompt dos veces en pypy2/3, tube que
+            # quitar una llamada dentro de _print_prompt() y añadir self.console.write(self.prompt).
+            # Además corregí el bug de el prompt intercalado ".... ", ">>>> "
+
         self._print_prompt()
 
 
