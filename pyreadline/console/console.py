@@ -241,6 +241,9 @@ class Console(object):
         elif sys.version_info[:2] > (3, 4):                         # Common Python3.4++
             self.pythondll.PyMem_RawMalloc.restype = c_size_t
             self.pythondll.PyMem_Malloc.argtypes = [c_size_t]
+
+            self.inputHookPtr = \
+                c_void_p.from_address(addressof(self.pythondll.PyOS_InputHook)).value
             setattr(Console, 'PyMem_Malloc', self.pythondll.PyMem_RawMalloc)
         else:                                                       # Common Python3.4--
             self.pythondll.PyMem_Malloc.restype = c_size_t
