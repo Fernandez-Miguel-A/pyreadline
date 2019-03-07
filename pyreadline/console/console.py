@@ -245,7 +245,6 @@ class Console(object):
         else:                                                       # Common Python3.4--
             self.pythondll.PyMem_Malloc.restype = c_size_t
             self.pythondll.PyMem_Malloc.argtypes = [c_size_t]
-            setattr(Console, 'PyMem_Malloc', self.pythondll.PyMem_Malloc)
 
             self.inputHookPtr = \
                 c_void_p.from_address(addressof(self.pythondll.PyOS_InputHook)).value
