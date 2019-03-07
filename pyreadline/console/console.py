@@ -855,11 +855,6 @@ def hook_wrapper_23(stdin, stdout, prompt):
         traceback.print_exc()
         res = '\n'
 
-    try:
-        IMP = sys._mercurial[0]
-    except AttributeError:
-        IMP = sys.implementation.name
-
     if IMP == "PyPy":
         return res
     else:
