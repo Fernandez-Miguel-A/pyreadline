@@ -252,7 +252,15 @@ class BaseMode(object):
             IMP = sys._mercurial[0]
         except AttributeError:
             IMP = sys._git[0]
-            
+
+        #
+        adding_emptyLine = "\n"
+        if type(self.prompt) != str:
+            adding_emptyLine = adding_emptyLine.encode()
+
+        self.console.write(adding_emptyLine)
+        #
+
         if IMP.lower() == "pypy":
             self.console.write(self.prompt)# Antes escribía el prompt dos veces en pypy2/3, tube que
             # quitar una llamada dentro de _print_prompt() y añadir self.console.write(self.prompt).
