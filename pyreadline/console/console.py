@@ -891,12 +891,12 @@ def install_readline(hook):
         #return
         if sys.winver > "3":
             cin = sys.stdin
-            cin.readline = lambda limit=-1: hook_wrapper_23(None, None, "\n>>>> ") #bug. Si habro un dic, '{', y luego doy 
+            cin.readline = lambda limit=-1: hook_wrapper_23(None, None, ">>>> ") #bug. Si habro un dic, '{', y luego doy
             # enter, enter, enter; aparece ">>>>" intercalado, pero solo debería aparecer "...." . RESUELTO
         else:
             import io, sys
             cin = io.open(0)
-            cin.readline = lambda limit=-1: hook_wrapper_23(None, None, "\n>>>> ") #bug. Si habro un dic, '{', y luego doy 
+            cin.readline = lambda limit=-1: hook_wrapper_23(None, None, ">>>> ") #bug. Si habro un dic, '{', y luego doy
             # enter, enter, enter; aparece ">>>>" intercalado, pero solo debería aparecer "...." . RESUELTO
             sys.stdin = cin
     else:
