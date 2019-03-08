@@ -826,13 +826,13 @@ def hook_wrapper_23(stdin, stdout, prompt):
     '''Wrap a Python readline so it behaves like GNU readline.'''
     # print(type(stdin), type(stdout), type(prompt), prompt)
     try:
-        # call the Python hook
-        res = readline_hook(prompt)
-
         try:
             IMP = sys._mercurial[0]
         except AttributeError:
             IMP = sys._git[0]
+
+        # call the Python hook
+        res = readline_hook(prompt)
 
         if IMP.lower() == "pypy" and sys.version > "3.0": # hay un bug cuando tipea sys.´´ "enter"  aparece  sys.|--
             # make sure it returned the right sort of thing
