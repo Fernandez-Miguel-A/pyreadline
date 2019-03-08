@@ -856,12 +856,13 @@ def hook_wrapper_23(stdin, stdout, prompt):
         res = '\n'
 
     if IMP.lower() == "pypy":
+#        print("\n\ntp: %s, v: %s"%(type(res), res))
         return res
     else:
         #we have to make a copy because the caller expects to free the result
         n = len(res)
         p = Console.PyMem_Malloc(n + 1)
-        # print("\n\ntp: %s, v: %s\ntp: %s, v: %s\ntp: %s, v: %s"%(type(p), p, type(c_char_p), c_char_p, type(res), res))
+#        print("\n\ntp: %s, v: %s\ntp: %s, v: %s\ntp: %s, v: %s"%(type(p), p, type(c_char_p), c_char_p, type(res), res))
         _strncpy(cast(p, c_char_p), res, n + 1)
         return p
 

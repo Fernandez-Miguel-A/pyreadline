@@ -471,6 +471,7 @@ class Readline(BaseReadline):
         except AttributeError:
             IMP = sys._git[0]
 
+        # print("\n\n<self.prompt> tp: %s, v: %s"%(type(self.prompt), self.prompt))
         if IMP.lower() != "pypy":        # En PyPy invoca a "self.console.write(self.prompt)"
             n = c.write_scrolling(self.prompt, self.prompt_color)
 
