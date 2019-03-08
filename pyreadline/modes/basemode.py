@@ -251,7 +251,7 @@ class BaseMode(object):
         try:
             IMP = sys._mercurial[0]
         except AttributeError:
-            IMP = sys.implementation.name
+            IMP = sys._git[0]
             
         if IMP.lower() == "pypy":
             self.console.write(self.prompt)# Antes escribía el prompt dos veces en pypy2/3, tube que

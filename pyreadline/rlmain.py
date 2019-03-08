@@ -469,7 +469,7 @@ class Readline(BaseReadline):
         try:
             IMP = sys._mercurial[0]
         except AttributeError:
-            IMP = sys.implementation.name
+            IMP = sys._git[0]
 
         if IMP.lower() != "pypy":        # En PyPy invoca a "self.console.write(self.prompt)"
             n = c.write_scrolling(self.prompt, self.prompt_color)

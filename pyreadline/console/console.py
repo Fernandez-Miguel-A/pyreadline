@@ -220,7 +220,7 @@ class Console(object):
         try:
             IMP = sys._mercurial[0]
         except AttributeError:
-            IMP = sys.implementation.name
+            IMP = sys._git[0]
 
         # print('\n\n\npython%s%s' % (sys.version[0], sys.version[2]), "\n\n", IMP)
         if IMP.lower() == "pypy":
@@ -396,7 +396,7 @@ class Console(object):
         try:
             IMP = sys._mercurial[0]
         except AttributeError:
-            IMP = sys.implementation.name
+            IMP = sys._git[0]
 
         if IMP.lower() == "pypy":
             string = create_unicode_buffer(len(txt))
@@ -832,7 +832,7 @@ def hook_wrapper_23(stdin, stdout, prompt):
         try:
             IMP = sys._mercurial[0]
         except AttributeError:
-            IMP = sys.implementation.name
+            IMP = sys._git[0]
 
         if IMP.lower() == "pypy" and sys.version > "3.0": # hay un bug cuando tipea sys.´´ "enter"  aparece  sys.|--
             # make sure it returned the right sort of thing
@@ -878,7 +878,7 @@ def install_readline(hook):
     try:
         IMP = sys._mercurial[0]
     except AttributeError:
-        IMP = sys.implementation.name
+        IMP = sys._git[0]
 
     if IMP.lower() == "pypy":
         #return
