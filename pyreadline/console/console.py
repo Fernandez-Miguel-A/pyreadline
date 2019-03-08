@@ -849,11 +849,17 @@ def hook_wrapper_23(stdin, stdout, prompt):
         return 0
     except EOFError:
         # It returns an empty string on EOF
-        res = ''
+        if IMP.lower() != "pypy" and sys.version > "3.0":
+            res = b''
+        else:
+            res = ''
     except:
         print('Readline internal error', file=sys.stderr)
         traceback.print_exc()
-        res = '\n'
+        if IMP.lower() != "pypy" and sys.version > "3.0":
+            res = b'\n'
+        else:
+            res = '\n'
 
     if IMP.lower() == "pypy":
 #        print("\n\ntp: %s, v: %s"%(type(res), res))
